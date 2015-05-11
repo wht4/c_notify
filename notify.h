@@ -37,14 +37,14 @@ extern "C" {
  * \param pvData      Notification data, provided by sender
  * \param s32DataSize Size of notification data, provided by sender
  */
-typedef void (*pfNotifyHdlr)(void  * pvReceiver, 
-                             void  * pvSender, 
-                             int32_t s32Info, 
-                             void  * pvData, 
+typedef void (*pfNotifyHdlr)(void  * pvReceiver,
+                             void  * pvSender,
+                             int32_t s32Info,
+                             void  * pvData,
                              int32_t s32DataSize);
 
 
-typedef struct _NotifyData_t{
+typedef struct _NotifyData_t {
     /** Callback function called if the event occurs */
     pfNotifyHdlr     pfHdlr;
     /** Receiver of the callback function */
@@ -52,7 +52,7 @@ typedef struct _NotifyData_t{
     /** Notification info */
     int32_t          s32Info;
 
-}NotifyData_t;
+} NotifyData_t;
 
 /****** Fuction prototypes ****************************************************/
 
@@ -76,11 +76,14 @@ typedef struct _NotifyData_t{
  *
  ******************************************************************************/
 static inline void
-notify_init(NotifyData_t * ptCtx, pfNotifyHdlr * pfHdlr, void * pvReceiver, int32_t s32Info) {
-	
-	ptCtx->pfHdlr = pfHdlr;
-	ptCtx->pvReceiver = pvReceiver;
-	ptCtx->s32Info = s32Info;
+notify_init(NotifyData_t * ptCtx,
+            pfNotifyHdlr * pfHdlr,
+            void * pvReceiver,
+            int32_t s32Info) {
+
+    ptCtx->pfHdlr = pfHdlr;
+    ptCtx->pvReceiver = pvReceiver;
+    ptCtx->s32Info = s32Info;
 }
 
 
@@ -96,15 +99,15 @@ notify_init(NotifyData_t * ptCtx, pfNotifyHdlr * pfHdlr, void * pvReceiver, int3
  *  @return       void
  *
  ******************************************************************************/
-static inline void 
+static inline void
 notify_clear(NotifyData_t * ptCtx) {
-	
-	ptCtx->pfHdlr = NULL;
-	ptCtx->pvReceiver = NULL;
-	ptCtx->s32Info = 0;   
+
+    ptCtx->pfHdlr = NULL;
+    ptCtx->pvReceiver = NULL;
+    ptCtx->s32Info = 0;
 }
 
- 
+
 /*******************************************************************************
  *  function :    notify_assign
  ******************************************************************************/
@@ -118,12 +121,12 @@ notify_clear(NotifyData_t * ptCtx) {
  *  @return       void
  *
  ******************************************************************************/
-static inline void 
+static inline void
 notify_assign(NotifyData_t * ptSignal, NotifyData_t * ptSlot) {
-	 
-	ptSignal->pfHdlr = ptSlot->pfHdlr;
-	ptSignal->pvReceiver = ptSlot->pvReceiver;
-	ptSignal->s32Info = ptSlot->s32Info; 
+
+    ptSignal->pfHdlr = ptSlot->pfHdlr;
+    ptSignal->pvReceiver = ptSlot->pvReceiver;
+    ptSignal->s32Info = ptSlot->s32Info;
 }
 
 
@@ -155,16 +158,19 @@ notify_assign(NotifyData_t * ptSignal, NotifyData_t * ptSlot) {
  *
  ******************************************************************************/
 static inline void
-notify_fire(NotifyData_t * ptCtx, void * pvSender, void * pvData, int32_t s32DataSize) {
-	
-	if(ptCtx->pfHndlr != NULL) {
-		
-		ptCtx->pfHdlr(ptCtx->pvReceiver, 
-		              pvSender,
-		              ptCtx->s32Info,
-		              pvData,
-		              s32DataSize);
-	}
+notify_fire(NotifyData_t * ptCtx,
+            void * pvSender,
+            void * pvData,
+            int32_t s32DataSize) {
+
+    if(ptCtx->pfHndlr != NULL) {
+
+        ptCtx->pfHdlr(ptCtx->pvReceiver,
+                      pvSender,
+                      ptCtx->s32Info,
+                      pvData,
+                      s32DataSize);
+    }
 }
 
 
