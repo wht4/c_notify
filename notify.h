@@ -15,7 +15,10 @@
  *
  ******************************************************************************/
 /*
- *  function    .
+ *  function    notify_init
+ *              notify_clear
+ *              notify_assign
+ *              notify_fire
  *
  ******************************************************************************/
 
@@ -77,7 +80,7 @@ typedef struct _NotifyData_t {
  ******************************************************************************/
 static inline void
 notify_init(NotifyData_t * ptCtx,
-            pfNotifyHdlr * pfHdlr,
+            pfNotifyHdlr pfHdlr,
             void * pvReceiver,
             int32_t s32Info) {
 
@@ -131,18 +134,6 @@ notify_assign(NotifyData_t * ptSignal, NotifyData_t * ptSlot) {
 
 
 /*******************************************************************************
- *  function :    NOTIFICATION_NOTIFY
- ******************************************************************************/
-/**
- * Notify the notification
- * \param[in]   psNotificationData  Pointer to the notification structure
- * \param[in]   pvSender            Sender of the notification
- * \param[in]   pvData              Data passed to the receiver of the
- *                                  notification
- * \param[in]   s32DataSize         Data size passed
- * \return      void
- */
-/*******************************************************************************
  *  function :    notify_fire
  ******************************************************************************/
 /** @brief        Fire a notification
@@ -163,7 +154,7 @@ notify_fire(NotifyData_t * ptCtx,
             void * pvData,
             int32_t s32DataSize) {
 
-    if(ptCtx->pfHndlr != NULL) {
+    if(ptCtx->pfHdlr != NULL) {
 
         ptCtx->pfHdlr(ptCtx->pvReceiver,
                       pvSender,
